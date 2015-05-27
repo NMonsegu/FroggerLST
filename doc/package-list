@@ -1,0 +1,11 @@
+edu.cesi.libgdx.frogger.controler
+edu.cesi.libgdx.frogger.model
+edu.cesi.libgdx.frogger.model.strategy
+edu.cesi.libgdx.frogger.resources
+edu.cesi.libgdx.frogger.utils
+edu.cesi.libgdx.frogger.utils.enums
+edu.cesi.libgdx.frogger.view
+edu.cesi.libgdx.frogger.view.game
+edu.cesi.libgdx.frogger.view.highScore
+edu.cesi.libgdx.frogger.view.menu
+edu.cesi.libgdx.frogger.world
