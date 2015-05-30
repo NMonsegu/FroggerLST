@@ -365,7 +365,7 @@ public class LevelFrogger implements Level
 	@Override
 	public void applyCollisionEffect(Entity player){
 		player.setLife(player.getLife()-1);
-		player.setPosition(50, 50);
+		player.setPosition(600, 50);
 		heartList.remove(0);
 	}
 	/**
@@ -550,14 +550,13 @@ public class LevelFrogger implements Level
 	/** Collision detection for last tier  */
 	public boolean isAtHome(Player player){
 		
-	 if(player.getPosition().y > Constants.TIER_3_Y)
-		{
+
 			for (Entity flag : flagsList) 
 			{
 				for (Entity winPlayer: winPlayerList)
 				{
 					if(player.getPosition().overlaps(winPlayer.getPosition())){
-						System.out.println("COLLIDE FLY");
+						System.out.println("COLLIDE winplayer");
 						this.applyCollisionEffect(player);
 						return false;
 					}
@@ -576,10 +575,10 @@ public class LevelFrogger implements Level
 					this.applyCollisionEffect(player);
 					return false;
 				}
+				
 			}
 			return false;
-		}
-		return false;
+
 	}
 	
 	//************************************************* Utils *************************************************//
@@ -610,14 +609,24 @@ public class LevelFrogger implements Level
 	{
 		if(player.getPosition().y < Constants.TIER_2_Y)
 		{
+			System.out.println("tier 1 ");
 			return 0;
 		}
 		else if(player.getPosition().y > Constants.TIER_2_Y && player.getPosition().y < Constants.TIER_3_Y)
 		{
+			System.out.println("tier 2 ");
+
 			return 1;
+		}else if(player.getPosition().y >= Constants.TIER_3_Y)
+		{
+			System.out.println("tier 3 ");
+
+			return 2;
 		}else 
 		{
-			return 2;
+			System.out.println("ELSE ");
+
+			return -1;
 		}
 	}
 

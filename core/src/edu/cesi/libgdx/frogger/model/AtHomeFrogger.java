@@ -10,7 +10,8 @@ public class AtHomeFrogger extends Entity
 {	
 	private Animation winplayerAnimation;
 	
-	public AtHomeFrogger(){
+	public AtHomeFrogger()
+	{
         bounds = new Rectangle();            
         bounds.x = 0;
         bounds.y = 0;                         

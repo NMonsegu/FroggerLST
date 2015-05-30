@@ -36,6 +36,7 @@ public class FroggerWorld
 	private boolean soundState;
 	private FroggerScreen froggerScreen;
 	private int valueTimer = 60;
+	private int countTimer = 0;
 		
 	public FroggerWorld(MainGame mainGame,FroggerScreen froggerScreen)
 	{
@@ -152,40 +153,57 @@ public class FroggerWorld
 		}
 		int tier = level.getPlayerTier(player);
 		
+		player.move(difficultyManager.getVelocityPlayer());
+
 		//Collision management
-		if(tier == 0 || tier == 2)
+		if(tier == 0 /*|| tier == 2*/)
 		{
-			player.move(difficultyManager.getVelocityPlayer());
+			//player.move(difficultyManager.getVelocityPlayer());
 	        boolean is = level.isCollideFistTier(player);
 	        if(is)
 	        {
 	        	this.playHit();
 	        	level.applyCollisionEffect(player);
+	        	this.timer.resetTimer();
 	        }
 		}else if(tier ==1)
 		{
-			player.move(difficultyManager.getVelocityPlayer());
+			//player.move(difficultyManager.getVelocityPlayer());
 			
 	        boolean isColideSecondTier = level.isCollideSecondTier(player);
 	        if(isColideSecondTier)
 	        {
 	        	this.playHit();
 	        	level.applyCollisionEffect(player);
+	        	this.timer.resetTimer();
+	        }
+		}else if (tier == 2)
+		{
+			//player.move(difficultyManager.getVelocityPlayer());
+
+			System.out.println("TIER  == 2");
+	        //Check if player is at home
+	        if(level.isAtHome(player))
+	        {
+	        	this.countTimer += this.timer.getTimer();
+	        	score.setScore(score.getScore() + 50);//Bonus
+	        	score.setLastMaxPosition(new Vector2(600,50));
+	        	this.timer.resetTimer();
+	        }else
+	        {
+	           	this.playHit();
+	        	level.applyCollisionEffect(player);
+	        	this.timer.resetTimer();
 	        }
 		}
 		
 		//Increase score
         score.increaseScore(player.getPosition().x, player.getPosition().y);
         
-        //Check if player is at home
-        if(level.isAtHome(player))
-        {
-        	score.setScore(score.getScore() + 50);//Bonus
-        	score.setLastMaxPosition(new Vector2(50,50));
-        }
+
         
         //Check if timer == 0
-		if(tmpTimer <= 0)
+		if(tmpTimer <= 0) //TODO CHECK SI IL RESTE DES VIES
 		{
 			this.gamestate = GameStates.GAMEOVER;
 			this.playTimeout();
@@ -194,7 +212,7 @@ public class FroggerWorld
         	return;
 		} 
         //Check if player is dead
-        if(player.die())
+        if(player.die()) //TODO MULTIPLIER LE SCORE
         {	
         	level.resetLevel();
         	this.gamestate = GameStates.GAMEOVER;

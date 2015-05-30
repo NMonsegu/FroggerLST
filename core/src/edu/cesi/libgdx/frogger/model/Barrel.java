@@ -12,11 +12,13 @@ public class Barrel extends Entity
 	private Animation barrelAnimationGutter;
 	private boolean isTrap = false;
 
-	public void setTrap(boolean isTrap) {
+	public void setTrap(boolean isTrap) 
+	{
 		this.isTrap = isTrap;
 	}
 	
-	public boolean getTrap(){
+	public boolean getTrap()
+	{
 		return this.isTrap;
 	}
 
