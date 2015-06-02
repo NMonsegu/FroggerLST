@@ -2,7 +2,6 @@ package edu.cesi.libgdx.frogger.model;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
-
 import edu.cesi.libgdx.frogger.model.strategy.Entity;
 import edu.cesi.libgdx.frogger.model.strategy.LinearMovementsRight;
 

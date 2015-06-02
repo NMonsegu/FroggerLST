@@ -76,7 +76,9 @@ public class FroggerWorldRenderer
 	      this.level.createElements();
 	      
 	      labelScore =  uiManager.createLabelTitle("Score");
-	      labelScore.setPosition(970, 18);
+	      labelScore.setPosition(800, 18);
+	      //labelScore = uiManager.createLabel("Score");
+	      //labelScore.setPosition(900, 30);
 	      
 	      timerBar = new BitmapFont();
 	}
@@ -101,7 +103,7 @@ public class FroggerWorldRenderer
 	/**
 	 * Convert byte to Ko Mo Go ...
 	 * */
-  /*  private String getFormattedSize(long size) 
+   private String getFormattedSize(long size) 
     {
         String[] suffixes = new String[] { "octets", "Ko", "Mo", "Go", "To" };
  
@@ -118,7 +120,7 @@ public class FroggerWorldRenderer
         tmpSize /= 100;
  
         return tmpSize + " " + suffixes[i];
-    }*/
+    }
 
 	/**
 	 * Called by {@link FroggerWorld} at each cycle. It draw all graphics and manage the camera.
@@ -143,8 +145,9 @@ public class FroggerWorldRenderer
 			//Draw score
 		    labelScore.draw(batch, stateTime);
 		    //Draw debug
-		    this.font.draw(batch, Integer.toString(Gdx.graphics.getFramesPerSecond()), 600, 680);
-		    //this.font.draw(batch, this.getFormattedSize(Gdx.app.getJavaHeap()), 600, 150);
+		    this.font.draw(batch, "FPS : " +  Integer.toString(Gdx.graphics.getFramesPerSecond()), 100, 100);
+		    this.font.draw(batch, this.getFormattedSize(Gdx.app.getJavaHeap()), 250, 100);
+		    
 		    //Draw camera
 		    this.batch.setProjectionMatrix(camera.combined);
 		    
@@ -156,7 +159,7 @@ public class FroggerWorldRenderer
 		    
 		    //Draw label timer
 	        this.progress = world.getTimer();
-	        timerBar.draw(batch, "Timer : " + progress , 800, 80);       
+	        timerBar.draw(batch, "Timer : " + progress , 700, 80);       
 		this.batch.end(); 
 		
 		//Check collision maybe move to worlds
@@ -166,18 +169,18 @@ public class FroggerWorldRenderer
 		shapeRenderer.begin(ShapeType.Filled);	
 	        shapeRenderer.setProjectionMatrix(camera.combined);
 	        shapeRenderer.setColor(Color.YELLOW);
-	        shapeRenderer.rect(800, 35, world.getTimer(), 20);
+	        shapeRenderer.rect(700, 35, world.getTimer(), 20);
         shapeRenderer.end();
         
 		//Draw empty rectangle
 		shapeRenderer.begin(ShapeType.Line);	
 	        shapeRenderer.setProjectionMatrix(camera.combined);
 	        shapeRenderer.setColor(Color.YELLOW);
-	        shapeRenderer.rect(800, 35, 60, 20);
+	        shapeRenderer.rect(700, 35, 60, 20);
 	        
 	        /*Debug*/
-			//shapeRenderer.rect(world.getPlayer().getAdvancedCollisionRectangle().getX(), world.getPlayer().getAdvancedCollisionRectangle().getY(), world.getPlayer().getAdvancedCollisionRectangle().getWidth(),world.getPlayer().getAdvancedCollisionRectangle().getHeight()); 
-			//shapeRenderer.rect(world.getPlayer().getBounds().getX(), world.getPlayer().getBounds().getY(), world.getPlayer().getBounds().getWidth(),world.getPlayer().getBounds().getHeight()); 
+			shapeRenderer.rect(world.getPlayer().getAdvancedCollisionRectangle().getX(), world.getPlayer().getAdvancedCollisionRectangle().getY(), world.getPlayer().getAdvancedCollisionRectangle().getWidth(),world.getPlayer().getAdvancedCollisionRectangle().getHeight()); 
+			shapeRenderer.rect(world.getPlayer().getBounds().getX(), world.getPlayer().getBounds().getY(), world.getPlayer().getBounds().getWidth(),world.getPlayer().getBounds().getHeight()); 
 	    shapeRenderer.end();
 	}
 	

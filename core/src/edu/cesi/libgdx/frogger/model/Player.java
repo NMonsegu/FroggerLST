@@ -41,8 +41,8 @@ public class Player extends Entity
 	public Player()
 	{  
         bounds = new Rectangle();            
-        bounds.x = 50;
-        bounds.y = 50;                         
+        bounds.x = 600;
+        bounds.y = 0;                         
         bounds.width = 60;
         bounds.height = 70;
         

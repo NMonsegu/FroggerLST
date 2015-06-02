@@ -52,7 +52,7 @@ public class ScoreStage extends Stage
         this.addActor(this.listView);
 		
 		mainMenu = uiManager.createButton("Menu");
-        mainMenu.setPosition(Gdx.graphics.getWidth()/2.05f  - mainMenu.getWidth()/2f, Gdx.graphics.getHeight() /3f - this.mainMenu.getHeight());
+        mainMenu.setPosition(Gdx.graphics.getWidth()/2f  - mainMenu.getWidth()/2f, Gdx.graphics.getHeight() /3f - this.mainMenu.getHeight());
 		
         mainMenu.addListener(new ChangeListener() {
 			@Override

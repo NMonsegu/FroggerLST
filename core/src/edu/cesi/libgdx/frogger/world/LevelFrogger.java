@@ -67,6 +67,11 @@ public class LevelFrogger implements Level
 		this.difficutyManager = difficutyManager;
 		ipm = new ItemPositionManager();
 		
+		numberOfFireBalls = this.difficutyManager.getNumberOfFireBallToDraw();
+		numberOfShurikens = this.difficutyManager.getNumberOfShurikenToDraw();
+		numberOfBarrels   = this.difficutyManager.getNumberOfBarrelToDraw();
+		velocityItem      = this.difficutyManager.getVelocityItem();
+		
 		fireballPosition = ipm.getPositionFireBalls();
 		shurikenPosition = ipm.getPositionShurikens();
 		barrelPosition   = ipm.getPositionBarrels();
@@ -77,10 +82,7 @@ public class LevelFrogger implements Level
 		heartsPosition     = ipm.getPositionHeart();
 		flagsPosition      = ipm.getPositionFlags();
 		
-		numberOfFireBalls = this.difficutyManager.getNumberOfFireBallToDraw();
-		numberOfShurikens = this.difficutyManager.getNumberOfShurikenToDraw();
-		numberOfBarrels   = this.difficutyManager.getNumberOfBarrelToDraw();
-		velocityItem      = this.difficutyManager.getVelocityItem();
+
 		//velocityItem2 = Constants.VELOCITY_ITEM_EASY_2;
 	}
 
@@ -365,7 +367,7 @@ public class LevelFrogger implements Level
 	@Override
 	public void applyCollisionEffect(Entity player){
 		player.setLife(player.getLife()-1);
-		player.setPosition(600, 50);
+		player.setPosition(600, 0);
 		heartList.remove(0);
 	}
 	/**
@@ -630,11 +632,11 @@ public class LevelFrogger implements Level
 		}
 	}
 
-	/**Check it the player is dead or has win
+	/**Check it the player has win
 	 * @return boolean
 	 * */
-	public boolean isGameFinish(Player player){
-		if(player.getLife() == 0 || winPlayerList.size() == Constants.NUMBER_OF_FLAG)
+	public boolean isGameWin(Player player){
+		if(winPlayerList.size() == Constants.NUMBER_OF_FLAG -1)
 		{
 			return true;
 		}

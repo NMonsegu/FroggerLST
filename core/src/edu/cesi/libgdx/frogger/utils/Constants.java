@@ -13,7 +13,7 @@ public class Constants
 	/*Game data*/
 	public static final int DEFAULT_LIFE = 4;
 	public static final int DEFAULT_TIMER_TIME = 60;
-	public static final int NUMBER_OF_FLAG = 4;
+	public static final int NUMBER_OF_FLAG = 5;
 	
 	public static final int NUMBER_OF_HIGH_SCORE = 5;
 	
@@ -71,7 +71,8 @@ public class Constants
 	public static final int NUMBER_OF_MEDIUM_BUSH     = 4;
 	public static final int NUMBER_OF_SMALL_BUSH      = 6;
 	
-	public static final int[] POSITION_FLAG_X =  {200, 500, 800, 1100, 1500};
+	//public static final int[] POSITION_FLAG_X =  {200, 500, 800, 1100, 1400};
+	public static final int[] POSITION_FLAG_X =  {200, 400, 600, 800, 1000};
 	public static final int POSITION_FLAG_Y   =  630;
 
 }

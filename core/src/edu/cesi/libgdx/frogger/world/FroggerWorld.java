@@ -186,9 +186,11 @@ public class FroggerWorld
 	        if(level.isAtHome(player))
 	        {
 	        	this.countTimer += this.timer.getTimer();
-	        	score.setScore(score.getScore() + 50);//Bonus
+	        	score.setScore(score.getScore() * countTimer);//Bonus
+	        	this.countTimer = 0;
 	        	score.setLastMaxPosition(new Vector2(600,50));
 	        	this.timer.resetTimer();
+	        	return;
 	        }else
 	        {
 	           	this.playHit();
@@ -205,12 +207,25 @@ public class FroggerWorld
         //Check if timer == 0
 		if(tmpTimer <= 0) //TODO CHECK SI IL RESTE DES VIES
 		{
-			this.gamestate = GameStates.GAMEOVER;
-			this.playTimeout();
-		 	((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-			.setScreen(new EndLevelScreen(gamestate,score));
-        	return;
+			//this.gamestate = GameStates.GAMEOVER;
+			//this.playTimeout();
+        	//mainGame.setScreen(new EndLevelScreen(gamestate,score));
+        	//return;
+           	this.playHit();
+        	level.applyCollisionEffect(player);
+        	this.timer.resetTimer();
 		} 
+		
+        //Check if player has win
+        if(level.isGameWin(player))
+        {
+        	this.gamestate = GameStates.WIN;
+        	this.playWin();
+        	this.stopMusics();
+        	mainGame.setScreen(new EndLevelScreen(gamestate,score));
+        	return;
+        }
+		
         //Check if player is dead
         if(player.die()) //TODO MULTIPLIER LE SCORE
         {	
@@ -218,20 +233,10 @@ public class FroggerWorld
         	this.gamestate = GameStates.GAMEOVER;
         	this.playGameOver();
         	this.stopMusics();
-        	((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-			.setScreen(new EndLevelScreen(gamestate,score));
+        	mainGame.setScreen(new EndLevelScreen(gamestate,score));
         	return;
         }
-        //Check if player has win
-        if(level.isGameFinish(player))
-        {
-        	this.gamestate = GameStates.WIN;
-        	this.playWin();
-        	this.stopMusics();
-        	((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-			.setScreen(new EndLevelScreen(gamestate,score));
-        	return;
-        }
+
 	}
 	
 	private void stopMusics()
@@ -318,7 +323,7 @@ public class FroggerWorld
     	score.resetScore();	
     	level.resetLevel();
     	timer.resetTimer();
-    	player.setPosition(50, 50);
+    	player.setPosition(600, 0);
     	this.gamestate = GameStates.INGAME;
 	}
 

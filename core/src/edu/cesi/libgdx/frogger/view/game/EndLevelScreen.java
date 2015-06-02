@@ -18,6 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -63,11 +66,16 @@ public class EndLevelScreen implements Screen
 	
 	public EndLevelScreen(GameStates state, Score score)
 	{		
-		this.camera = new OrthographicCamera();
-		this.viewport = new StretchViewport(1200,800,camera);
-		this.viewport.apply();
-		this.camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-		this.camera.update();
+		
+		this.background = new Texture(Gdx.files.internal("settingsScreen/settingsBackground1200x800.jpg"));
+		//this.viewport = new StretchViewport(1200,800,camera)
+		//this.camera = new OrthographicCamera();
+		//viewport = new FitViewport(100,100,camera);
+
+		//this.viewport = new FitViewport(800, 480);
+		//this.viewport.apply();
+		//this.camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+		//this.camera.update();
 		
 		comparator = new ValueComparator();
 		
@@ -75,11 +83,8 @@ public class EndLevelScreen implements Screen
 		
 		this.myScore = score;
 		this.batch = new SpriteBatch();
-		this.background = new Texture(Gdx.files.internal("settingsScreen/settingsBackground1200x800.jpg"));
+		
 		uiManager = new UIManager();
-		
-		
-		
 		
 		settingsManager = SettingsManager.getInstance();
 		difficulty = settingsManager.getLevel();
@@ -104,7 +109,6 @@ public class EndLevelScreen implements Screen
 				z = i;
 			} 
 		}
-		
 		
 
 		if(state == GameStates.WIN)
@@ -133,9 +137,6 @@ public class EndLevelScreen implements Screen
 			createHighScoreUI(score);
 		}
 		
-		
-	
-		
 		btnRetry = uiManager.createButton("Try again");
 		btnRetry.setPosition(Gdx.graphics.getWidth()/2 -btnRetry.getWidth()/2 , stage.getMainMenu().getY() - stage.getMainMenu().getHeight());
 		btnRetry.addListener(new ChangeListener() {
@@ -147,6 +148,16 @@ public class EndLevelScreen implements Screen
 		});
 		stage.addActor(btnRetry);
 		
+		//
+		this.camera = new OrthographicCamera();
+		this.viewport = new StretchViewport(1200,800,camera);
+		//viewport = new FillViewport(1200,800,camera);
+
+		//this.viewport = new FitViewport(800, 480);
+		this.viewport.apply();
+		this.camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+		this.camera.update();
+		
 		Gdx.input.setInputProcessor(stage);
 	}
 	
@@ -157,19 +168,23 @@ public class EndLevelScreen implements Screen
 	 * */
 	private void createHighScoreUI(Score score)
 	{
-		scoreLabel = uiManager.createLabelTitle("NEW SCORE ! : " + score.getScore());
-		scoreLabel.setPosition(Gdx.graphics.getWidth()/2 -scoreLabel.getWidth()/2, titleWinLoose.getY() - titleWinLoose.getHeight());
-		stage.addActor(scoreLabel);
+
 		
 		pseudo = new TextField("    pseudo",uiManager.getCustomSkin());
-		pseudo.setPosition(Gdx.graphics.getWidth()/1.9f, stage.getMainMenu().getY() + stage.getMainMenu().getHeight());
-		pseudo.pack();
+		pseudo.setPosition(Gdx.graphics.getWidth()/2 -pseudo.getWidth(), stage.getMainMenu().getY() + stage.getMainMenu().getHeight());
+		//pseudo.pack();
 		pseudo.setVisible(true);
 		stage.addActor(pseudo);
 		
+		scoreLabel = uiManager.createLabel("NEW SCORE ! : " + score.getScore());
+		//scoreLabel.setPosition(Gdx.graphics.getWidth()/2 -scoreLabel.getWidth()/2, titleWinLoose.getY() - titleWinLoose.getHeight());
+		
+		scoreLabel.setPosition(Gdx.graphics.getWidth()/2 -scoreLabel.getWidth()/2, pseudo.getY() + (pseudo.getHeight()));
+		stage.addActor(scoreLabel);
+		
 		btnSaveScore = uiManager.createButton("Save score");
 		btnSaveScore.pad(5, 5, 5, 5);
-		btnSaveScore.setPosition(Gdx.graphics.getWidth()/2.6f, stage.getMainMenu().getY() + stage.getMainMenu().getHeight());
+		btnSaveScore.setPosition(Gdx.graphics.getWidth()/2 + btnSaveScore.getWidth()/5, stage.getMainMenu().getY() + stage.getMainMenu().getHeight());
 		
 		limitSaveScore = false;
 		
@@ -219,15 +234,15 @@ public class EndLevelScreen implements Screen
 	public void render(float delta) 
 	{
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		this.camera.update();	
 
 		batch.begin();
-		batch.setProjectionMatrix(camera.combined);
-		batch.draw(background, 0, 0);
+			batch.setProjectionMatrix(camera.combined);
+			batch.draw(background, 0, 0);
 		batch.end();
 		
-		stage.act();
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		
 	}
@@ -237,6 +252,7 @@ public class EndLevelScreen implements Screen
 	@Override
 	public void resize(int width, int height) {
 	      this.viewport.update(width,height);
+	      
 	      this.camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);		
 	}
 

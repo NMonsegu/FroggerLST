@@ -203,11 +203,19 @@ public class ItemPositionManager
 		{
 			positionFlags = new Vector2[Constants.NUMBER_OF_FIREBALL_HARD];
 			
-			positionFlags[0] = new Vector2(100  , 625  );
+		/*	positionFlags[0] = new Vector2(100  , 625  );
 			positionFlags[1] = new Vector2(400 , 625  );
 			positionFlags[2] = new Vector2(700 , 625);
 			positionFlags[3] = new Vector2(1000 , 625);
-			positionFlags[4] = new Vector2(1500 , 625); 
+			positionFlags[4] = new Vector2(1500 , 625); */
+			
+			
+			positionFlags[0] = new Vector2(80  , 625  );
+			positionFlags[1] = new Vector2(330 , 625  );
+			positionFlags[2] = new Vector2(580 , 625);
+			positionFlags[3] = new Vector2(830 , 625);
+			positionFlags[4] = new Vector2(1070 , 625); 
+			
 		}catch(NullPointerException ex)
 		{
 			System.err.println(ex + "Error loading flags position");

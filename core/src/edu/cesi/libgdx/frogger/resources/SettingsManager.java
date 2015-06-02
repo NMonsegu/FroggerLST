@@ -12,7 +12,7 @@ public class SettingsManager
 {
 	private SettingsManager()
 	{
-		this.prefs = Gdx.app.getPreferences("prefs");
+		this.prefs = Gdx.app.getPreferences("doNotMove");
 	}
 	
 	private static class SettingsHolder
@@ -36,7 +36,14 @@ public class SettingsManager
 	{
 		for(int i = 0; i < highscore.length; i ++)
 		{
-			this.prefs.putString("highscores" + this.currentStateLevel  + i , highscore[i]);
+			if(highscore[i].contains("nodata"))
+			{
+				this.prefs.putString("highscores" + this.currentStateLevel  + i , "nodata - 0");
+			}else
+			{
+				this.prefs.putString("highscores" + this.currentStateLevel  + i , highscore[i]);
+			}
+			
 		}
 	}
 	

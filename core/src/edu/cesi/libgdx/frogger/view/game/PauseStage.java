@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+import edu.cesi.libgdx.frogger.controler.MainGame;
 import edu.cesi.libgdx.frogger.utils.UIManager;
 import edu.cesi.libgdx.frogger.view.menu.MenuScreen;
 
@@ -51,6 +52,7 @@ public class PauseStage extends Stage
 			public void changed(ChangeEvent event, Actor actor) {
             	((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 				.setScreen(new MenuScreen());
+
 			}
 		});
 		this.addActor(buttonMenu);
